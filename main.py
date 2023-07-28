@@ -82,70 +82,49 @@ class App(customtkinter.CTk):
         # Validar datos: Flotantes mayores que cero
         
         peso_es_valido = False
-        contador_de_puntos = 0
-        
+        bandera_puntos = True
+
         if peso:
             for letra in peso:
-                if not letra.isdecimal() and letra != ".":
+                if bandera_puntos == True and letra == ".":
+                    bandera_puntos = False
+                    peso_es_valido = True
+                elif not letra.isdigit():
                     peso_es_valido = False
                     break
-                elif letra == ".":
-                    contador_de_puntos += 1
-                    if contador_de_puntos > 1:
-                        peso_es_valido = False
-                        break
                 else:
-                    peso_es_valido = True
+                    if int(letra) <= 0:
+                        peso_es_valido = False
+                    else:
+                        peso_es_valido = True
 
-                # if letra.isdecimal():
-                #     peso_es_valido = True
-                # elif bandera_de_puntos and letra == ".":
-                #     bandera_de_puntos = False
-                #     peso_es_valido = True
-                # else:
-                #     peso_es_valido = False
-                #     break
+            if peso_es_valido == True:
+                peso = float(peso)
+                if unidad == "Onzas":
+                    peso_gramos = peso * 28.3495
+                else:
+                    peso_gramos = peso
         
-            peso = float(peso)
-
-            if unidad == "Onzas":
-                peso = peso * 28.3495
-
-            self.lista_pesos.append(peso)
-
-            if peso <= 0:
-                peso_es_valido = False
-
-        if peso_es_valido:
-            txt = "El peso es valido"
+                self.lista_pesos.append(peso_gramos)
         else:
-            txt = "El peso no es valido"
-        
-        alert("Carga", txt)
+            pass
+
+        if peso_es_valido == True:
+            peso = float(peso)
+            alert("Exito", "El peso es válido")
+        else:
+            alert("Error", "El peso NO es válido" )
+        self.txt_peso_articulo.delete(0, 100000)
+
+
 
     def btn_mostrar_on_click(self):
         pass
-
+        
+    
 
     def btn_informar_on_click(self):
-       # Indicar pesos repetidos (gramos)
-        self.lista_pesos = [1.2, 1.2, 3.4, 54.3, 123.2, 54.3, 1.2]
-
-        pesos_repetidos = []
-        
-        for peso in self.lista_pesos:
-            print(peso)
-            print(self.lista_pesos.count(peso))
-            if self.lista_pesos.count(peso) > 1 and pesos_repetidos.count(peso) == 0:
-                pesos_repetidos.append(peso)
-
-            if self.lista_pesos.count(peso) > 1: # se repite
-                if pesos_repetidos.count(peso) == 0: # esta en la lista
-                    pesos_repetidos.append(peso)
-            # if peso not in pesos_repetidos and self.lista_pesos.count(peso) > 1:
-            #     pesos_repetidos.append(peso)
-
-        print(f"Lista de pesos repetidos: {pesos_repetidos}")
+       pass
 
 if __name__ == "__main__":
     app = App()
