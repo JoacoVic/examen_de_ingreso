@@ -85,13 +85,14 @@ class App(customtkinter.CTk):
         self.btn_informe_3 = customtkinter.CTkButton(master=self, text="Informe 3", command=self.btn_mostrar_informe_3)
         self.btn_informe_3.grid(row=5, pady=10, columnspan=2, sticky="nsew")
         # Cargar aca los pokemones
-        self.lista_nombre_pokemones = ["Pikachu", "Charizard", "Bulbasaur", "Squirtle", "Jigglypuff", "Psyduck", "Eevee", "Gengar", "Mewtwo", "Vaporeon"]
-        self.lista_poder_pokemones = [80, 150, 70, 90, 60, 100, 75, 120, 180, 95]
-        self.lista_tipo_pokemones = ["eléctrico", "fuego", "planta", "agua", "normal", "agua", "normal", "fantasma", "psíquico", "agua"]
+        self.lista_nombre_pokemones = []
+        self.lista_poder_pokemones = []
+        self.lista_tipo_pokemones = []
 
 
     def btn_mostrar_informe_1(self):
-        alert("1","1")
+        #! 3) - Nombre y Poder del pokemon de tipo psiquico con el poder mas bajo.
+        pass
     
     def btn_mostrar_informe_2(self):
         alert("2","2")
@@ -100,7 +101,60 @@ class App(customtkinter.CTk):
         alert("3","3")
     
     def btn_cargar_pokedex_on_click(self):
-        alert("carga","carga")
+    # Validamos datos: El nombre del pokemon, El tipo de su elemento (Agua, Psiquico, Electrico), Poder de ataque(validar que sea mayor a 50 y menor a 200)
+
+        for datos_pokemon in range(2):
+            nombre_pokemon = prompt("Nombre", "Ingrese el nombre de su pokemon")
+            while not nombre_pokemon or not nombre_pokemon.isalpha():
+                nombre_pokemon = prompt("Error nombre", "Por favor, ingrese el nombre de su pokemon")
+            tipo_pokemon = prompt("Tipo de pokemon", "Elija el tipo de su pokemon (Agua, Psiquico o Electrico)")
+            while not tipo_pokemon or (tipo_pokemon != "Agua" and tipo_pokemon != "Psiquico" and tipo_pokemon != "Electrico"):
+                tipo_pokemon = prompt("Error en el tipo de pokemon", "Por favor, elija el tipo de su pokemon (Agua, Psiquico o Electrico)")
+            poder_ataque_pokemon = prompt("Poder de ataque", "Ingrese el poder de ataque de su pokemon (mayor a 50 y menor a 200)")
+            while not poder_ataque_pokemon or not poder_ataque_pokemon.isdigit() or (int(poder_ataque_pokemon) <= 50 and int(poder_ataque_pokemon) >= 200):
+                poder_ataque_pokemon = prompt("Error en el poder de ataque", "Por favor, ingrese el poder de ataque de su pokemon (mayor a 50 y menor a 200)")
+            poder_ataque_pokemon = int(poder_ataque_pokemon)
+
+            self.lista_nombre_pokemones.append(nombre_pokemon)
+            self.lista_tipo_pokemones.append(tipo_pokemon)
+            self.lista_poder_pokemones.append(poder_ataque_pokemon)
+
+
+        posicion = 0
+        for dato in self.lista_nombre_pokemones:
+            print(f"Posicion: {posicion}, nombre: {dato}")
+            posicion +=1
+
+        #! informe 1: 3) Nombre y Poder del pokemon de tipo psiquico con el poder mas bajo.
+
+        #! informe 2: 6) tipo de los pokemones del tipo que mas pokemones posea.
+        mayor_tipo = None
+        tipo_agua = 0
+        tipo_psiquico = 0
+        tipo_electrico = 0
+        for tipo in self.lista_tipo_pokemones:
+            if tipo == "Agua":
+                tipo_agua += 1
+            elif tipo == "Psiquico":
+                tipo_psiquico += 1
+            else:
+                tipo_electrico += 1
+
+        if tipo_agua > tipo_psiquico and tipo_agua > tipo_electrico:
+            mayor_tipo = "Agua"
+        elif tipo_psiquico > tipo_electrico and tipo_psiquico > tipo_agua:
+            mayor_tipo = "Psiquico"
+        else:
+            mayor_tipo = "Electrico"
+
+        print(f"El tipo con mas pokemones es: {mayor_tipo}")
+
+        # Informe 3: 2) - Nombre y Poder del pokemon de tipo electrico con el poder mas alto.
+
+        #ACLARACION: EN TODOS LOS EJERCICIOS QUE NO PUDE HACER FUERON PORQUE NO RECUERDO COMO MOSTRAR DATOS DE DISTINTAS LISTAS, EL RESTO (CREO) QUE ESTÁ BIEN.
+
+
+
 
     
 if __name__ == "__main__":
