@@ -124,34 +124,7 @@ class App(customtkinter.CTk):
         alert("Carga", txt)
 
     def btn_mostrar_on_click(self):
-        self.lista_pesos = [1.2, 3.4, 123.2, 54.3]
-
-        pesos_en_gramos = ""
-
-        i = 0
-        for peso in self.lista_pesos:
-            print(f"Indice {i}")
-            i += 1
-            pesos_en_gramos += str(peso) + " grs\n"
-        for i in range(len(self.lista_pesos)):
-            print(f"Indice {i} - Valor {self.lista_pesos[i]}")
-
-        for i, peso in enumerate(self.lista_pesos):
-            print(f"Indice {i} - Valor {peso}")
-
-        alert("Pesos en gramos", pesos_en_gramos)
-
-        pesos_en_onzas = []
-
-        for peso in self.lista_pesos:
-            peso_onzas = peso / 28.3495
-            pesos_en_onzas.append(peso_onzas)
-
-        pesos_en_onzas_txt = ''
-        for peso in pesos_en_onzas:
-            pesos_en_onzas_txt += str(peso) + " oz\n"
-
-        alert("Pesos en onzas", pesos_en_onzas_txt)
+        pass
 
 
     def btn_informar_on_click(self):
